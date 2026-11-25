@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>L'IA chez Bellanger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Direction artistique AXEM IA */
+:root{
+  --bleu:#2349FF; --creme:#FAF6EA; --encre:#0B0D12; --papier:#FFFDF7; --bleu-doux:#8FA2FF;
+  --muted:#5a5d68; --line:#e8e1cf; --bleu-pale:#e8ecff; --vert:#1f7a4d; --vert-pale:#e2f3e9;
+  --gris:#5b6470; --gris-pale:#eceae3; --alerte:#c2410c; --alerte-pale:#fdeadf;
+  --r:22px; --r-s:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--creme);color:var(--encre);font:16.5px/1.6 "Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:900;font-variation-settings:"SOFT" 100,"opsz" 144;line-height:1.08;margin:0 0 .5em;letter-spacing:-.015em}
+h1{font-size:clamp(2.3rem,6vw,4rem)}
+h2{font-size:clamp(1.7rem,4vw,2.6rem)}
+h3{font-size:1.2rem;font-weight:800;font-variation-settings:"SOFT" 100,"opsz" 36;letter-spacing:0}
+em{font-style:italic;color:var(--bleu)}
+p{margin:0 0 1em}
+.kicker{font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bleu);margin-bottom:.9em}
+section{padding:72px 0}
+section.alt{background:var(--papier);border-radius:40px 40px 0 0}
+.lead{font-size:1.14rem;color:var(--muted);max-width:740px}
+.card{background:var(--papier);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+section.alt .card{background:var(--creme)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.small{font-size:.88rem;color:var(--muted)}
+.tag{display:inline-block;font-size:.74rem;font-weight:700;padding:4px 12px;border-radius:999px;margin:0 6px 10px 0}
+.t-now{background:var(--vert-pale);color:var(--vert)}
+.t-pilot{background:var(--bleu-pale);color:var(--bleu)}
+.t-later{background:var(--gris-pale);color:var(--gris)}
+
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--creme) 90%,transparent);backdrop-filter:blur(10px)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;height:60px;gap:12px}
+.brand{font-family:Fraunces,serif;font-weight:900;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:1.3rem;color:var(--encre);text-decoration:none}
+.brand i{color:var(--bleu)}
+.brand small{font-family:"Instrument Sans",sans-serif;font-weight:500;font-size:.85rem;color:var(--muted);margin-left:8px}
+.nav{display:flex;gap:6px;font-size:.9rem}
+.nav a{color:var(--encre);text-decoration:none;padding:6px 12px;border-radius:999px}
+.nav a:hover{background:var(--bleu-pale);color:var(--bleu)}
+@media (max-width:820px){.nav{display:none}}
+
+.hero{padding:64px 0 56px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.hero .meta span{font-size:.86rem;background:var(--papier);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:40px}
+.stat b{display:block;font-family:Fraunces,serif;font-weight:900;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:2.5rem;line-height:1;color:var(--bleu);margin-bottom:6px}
+.stat span{font-size:.93rem;color:var(--muted)}
+
+.codir{border-left:6px solid var(--bleu)}
+.codir ol{margin:0;padding-left:1.2em}
+.codir li{margin-bottom:.6em}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:20px}
+.not ul{margin:0;padding-left:1.1em}
+.not li{margin-bottom:.45em}
+
+.tool{display:flex;flex-direction:column;gap:6px}
+.tool .need{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.tool h3{margin:0}
+.tool .what{font-size:.94rem;margin:0}
+.tool dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.86rem;margin:10px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+.tool dt{color:var(--muted)}
+.tool dd{margin:0;font-weight:600}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 16px}
+.tabs button,.btnx{font:inherit;font-weight:600;font-size:.93rem;padding:11px 20px;border-radius:999px;border:1px solid var(--line);background:var(--papier);color:var(--encre);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--encre);border-color:var(--encre);color:var(--papier)}
+.demo{display:none}
+.demo.on{display:block}
+.ba{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+.label{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
+.raw{background:var(--creme);border-radius:var(--r-s);padding:16px;font-size:.95rem;font-style:italic;color:var(--muted)}
+.cr h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;margin:14px 0 4px;color:var(--bleu)}
+.cr h4:first-child{margin-top:0}
+.cr ul{margin:0;padding-left:1.1em;font-size:.94rem}
+.cr table{width:100%;border-collapse:collapse;font-size:.89rem;margin-top:4px}
+.cr td,.cr th{border-bottom:1px solid var(--line);padding:7px 4px;text-align:left}
+.go{margin-top:16px}
+.primary{font:inherit;font-weight:700;padding:12px 22px;border-radius:999px;border:0;background:var(--bleu);color:#fff;cursor:pointer}
+.out{opacity:.22;transition:opacity .5s}
+.out.show{opacity:1}
+.pill{display:inline-block;font-size:.76rem;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--vert-pale);color:var(--vert)}
+.pill.w{background:var(--alerte-pale);color:var(--alerte)}
+
+.prompt{position:relative;background:var(--encre);color:var(--papier);border-radius:var(--r);padding:26px 24px 24px;font-size:.95rem;line-height:1.6;white-space:pre-wrap}
+.prompt .copy{position:absolute;top:14px;right:14px;font:inherit;font-weight:700;font-size:.84rem;padding:8px 16px;border-radius:999px;border:0;background:var(--bleu-doux);color:var(--encre);cursor:pointer}
+.howto{counter-reset:s;list-style:none;padding:0;margin:0}
+.howto li{counter-increment:s;position:relative;padding-left:46px;margin-bottom:16px}
+.howto li::before{content:counter(s);position:absolute;left:0;top:-2px;width:32px;height:32px;border-radius:50%;background:var(--bleu);color:#fff;font-weight:700;display:grid;place-items:center}
+
+.quote{font-family:Fraunces,serif;font-weight:800;font-style:italic;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:clamp(1.4rem,3.2vw,2rem);line-height:1.25;margin:0 0 .3em;color:var(--bleu)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px}
+.rule{border-radius:var(--r-s);padding:14px 16px;font-size:.93rem}
+.rule b{display:block;margin-bottom:4px}
+.r-green{background:var(--vert-pale)} .r-orange{background:#fff1d6} .r-red{background:var(--alerte-pale)}
+
+.steps{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.step .num{font-family:Fraunces,serif;font-weight:900;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:3rem;color:var(--bleu);line-height:1}
+.step.zero{background:var(--encre);color:var(--papier);border-color:var(--encre)}
+.step.zero .num{color:var(--bleu-doux)}
+.step.zero .when,.step.zero .deliv{color:#c9cbd6}
+.step .when{font-size:.86rem;font-weight:600;color:var(--muted);margin:.2em 0 .9em}
+.step ul{margin:0;padding-left:1.1em;font-size:.94rem}
+.step li{margin-bottom:.4em}
+.step .deliv{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:.9rem}
+.step.zero .deliv{border-top-color:#3a3d4a}
+
+.tbl{width:100%;border-collapse:collapse;font-size:.94rem}
+.tbl th,.tbl td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.tbl td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbl tr.total td{font-weight:700;color:var(--bleu)}
+.scroll{overflow-x:auto}
+
+.sim{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.field{margin-bottom:16px}
+.field label{display:flex;justify-content:space-between;gap:8px;font-size:.92rem;font-weight:600;margin-bottom:6px}
+.field label output{color:var(--bleu);font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--bleu)}
+.result{display:grid;gap:12px;align-content:start}
+.result .big{font-family:Fraunces,serif;font-weight:900;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:2.5rem;line-height:1;color:var(--bleu)}
+.bar{height:14px;border-radius:999px;background:var(--line);overflow:hidden;margin:6px 0 2px}
+.bar i{display:block;height:100%;background:var(--bleu);border-radius:999px;transition:width .3s}
+.bar.cost i{background:var(--bleu-doux)}
+
+details{background:var(--papier);border:1px solid var(--line);border-radius:var(--r-s);padding:0 20px;margin-bottom:10px}
+section.alt details{background:var(--creme)}
+summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--bleu);font-size:1.3rem;line-height:1}
+details[open] summary::after{content:"−"}
+details p{margin:0 0 16px;color:var(--muted)}
+
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.vs ul{margin:0;padding-left:1.1em;font-size:.94rem}
+.vs li{margin-bottom:.5em}
+.vs .ours{border:2px solid var(--bleu)}
+.next li{margin-bottom:.7em}
+.cta{display:inline-block;background:var(--bleu);color:#fff;text-decoration:none;font-weight:700;padding:13px 24px;border-radius:999px;margin-top:20px}
+.cta.ghost{background:transparent;color:var(--encre);border:1px solid var(--encre);margin-left:8px}
+footer{padding:40px 0 64px;font-size:.85rem;color:var(--muted)}
+@media print{
+  .top,.cta,.tabs,.go,.copy,.sim .controls{display:none!important}
+  .demo{display:block!important} .out{opacity:1!important}
+  details{display:block} details p{display:block}
+  section{padding:24px 0;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <a class="brand" href="#">AXEM <i>IA</i><small>× Bellanger Construction</small></a>
+  <nav class="nav">
+    <a href="#codir">L'essentiel</a><a href="#outils">Les outils</a><a href="#demo">Démo</a><a href="#essayer">Essayer</a><a href="#plan">Le plan</a><a href="#gains">Les gains</a><a href="#budget">Budget</a><a href="#questions">Questions</a>
+  </nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">Proposition pour Bellanger Construction · à l'attention de Julien Marchal et du comité de direction</div>
+  <h1>L'IA n'est pas une fusée.<br>C'est <em>un outil de plus</em> dans la caisse.</h1>
+  <p class="lead">Un outil qui fait gagner du temps à vos équipes, pour que l'entreprise soit plus rentable. On commence par le <b>chantier zéro</b> : préparer le terrain avant de construire. Sans changer votre façon de travailler, et sans risque pour vos données.</p>
+  <div class="stats">
+    <div class="card stat"><b>0 €</b><span>de licence pour sécuriser tout le monde dès janvier : l'outil est déjà inclus dans votre Microsoft 365</span></div>
+    <div class="card stat"><b>3</b><span>outils concrets testés par 15 personnes, avec le temps gagné mesuré</span></div>
+    <div class="card stat"><b>9 500 €</b><span>HT d'accompagnement, payable par étape, arrêt possible à chaque étape</span></div>
+  </div>
+  <div class="meta"><span>Démarrage : janvier 2027</span><span>Décision : fin mars 2027</span><span>Valable jusqu'au 31 janvier 2027</span></div>
+</div></header>
+
+<section id="codir" class="alt"><div class="wrap">
+  <div class="kicker">Pour le comité de direction · 1 minute</div>
+  <h2>L'essentiel, <em>en cinq points</em></h2>
+  <div class="card codir">
+    <ol>
+      <li><b>Le risque existe déjà.</b> Vos équipes utilisent ChatGPT et Claude gratuits, chacun dans son coin. Des données de l'entreprise sortent aujourd'hui, sans que personne ne sache lesquelles.</li>
+      <li><b>On commence par le chantier zéro.</b> Une charte simple et un outil sécurisé déjà payé dans votre abonnement Microsoft 365. Tous les salariés sont sensibilisés.</li>
+      <li><b>On prouve avant d'investir.</b> 15 personnes utilisent 3 outils concrets pendant 8 semaines. On mesure le temps gagné, avant et après.</li>
+      <li><b>Vous décidez fin mars, sur des chiffres.</b> Étendre, ajuster ou arrêter. Aucun engagement au-delà de l'étape en cours.</li>
+      <li><b>Le coût est maîtrisé.</b> 9 500 € HT d'accompagnement (contre 13 000 € pour l'offre généraliste qu'on vous a présentée), plus environ 3 300 € HT par an de licences pour les 15 testeurs. Constructys, votre OPCO, peut prendre en charge une partie de l'accompagnement : nous montons le dossier avec vous.</li>
+    </ol>
+  </div>
+  <div class="duo">
+    <div class="card">
+      <h3>Comme le passage de la règle au laser</h3>
+      <p style="margin:0">Le métier reste le même. Le conducteur reste conducteur, la comptable reste comptable. L'outil fait la partie répétitive plus vite, et la personne garde la main sur le résultat.</p>
+    </div>
+    <div class="card not">
+      <h3>Ce que l'IA ne fera pas chez vous</h3>
+      <ul>
+        <li>Remplacer un salarié : elle prépare, une personne valide.</li>
+        <li>Décider à votre place d'un prix, d'un marché ou d'une imputation.</li>
+        <li>Envoyer quoi que ce soit à l'extérieur sans qu'on le sache.</li>
+        <li>Vous engager sur des dépenses avant que les gains soient prouvés.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="outils"><div class="wrap">
+  <div class="kicker">La caisse à outils</div>
+  <h2>Des outils réels, <em>pas des promesses.</em></h2>
+  <p class="lead">Pour chaque besoin que vous avez cité : l'outil précis, ce qu'il coûte, et quand il arrive. La plupart s'appuient sur votre Microsoft 365 : vos équipes n'ont pas de nouveau logiciel à apprendre.</p>
+  <div class="grid g3" style="margin-top:28px">
+    <div class="card tool">
+      <div class="need">Besoin 01 · Sécurité</div>
+      <div><span class="tag t-now">Chantier zéro</span></div>
+      <h3>Microsoft 365 Copilot Chat</h3>
+      <p class="what">Le chat IA sécurisé de Microsoft, ouvert avec le compte professionnel. Les échanges ne servent pas à entraîner les modèles, et ils sont enregistrés et consultables pour audit.</p>
+      <dl><dt>Pour qui</dt><dd>Les 170 salariés</dd><dt>Coût</dt><dd>Inclus dans Microsoft 365</dd></dl>
+    </div>
+    <div class="card tool">
+      <div class="need">Besoin 03 · Travaux</div>
+      <div><span class="tag t-pilot">Pilote</span></div>
+      <h3>Assistant « Compte rendu »</h3>
+      <p class="what">Le conducteur dicte sur son téléphone pendant la visite. Un agent Copilot, construit par AXEM avec votre modèle de compte rendu, range la dictée dans les bonnes rubriques. Le conducteur relit et envoie.</p>
+      <dl><dt>Outil</dt><dd>Microsoft 365 Copilot + agent sur mesure</dd><dt>Coût</dt><dd>Licence Copilot Business</dd></dl>
+    </div>
+    <div class="card tool">
+      <div class="need">Besoin 04 · Appels d'offres</div>
+      <div><span class="tag t-pilot">Pilote</span></div>
+      <h3>Assistant « Mémoire technique »</h3>
+      <p class="what">Un agent Copilot qui s'appuie sur vos meilleurs mémoires passés, rangés dans SharePoint. Il propose une première version adaptée au règlement de consultation, dans une mise en forme modernisée.</p>
+      <dl><dt>Outil</dt><dd>Microsoft 365 Copilot + agent sur mesure</dd><dt>Coût</dt><dd>Licence Copilot Business</dd></dl>
+    </div>
+    <div class="card tool">
+      <div class="need">Besoin 02 · Études</div>
+      <div><span class="tag t-pilot">Pilote</span></div>
+      <h3>Comparatif des devis sous-traitants</h3>
+      <p class="what">Copilot dans Excel range les devis reçus côte à côte, poste par poste, et signale les écarts de prix et les postes oubliés. L'économiste garde la décision.</p>
+      <dl><dt>Outil</dt><dd>Copilot dans Excel</dd><dt>Coût</dt><dd>Licence Copilot Business</dd></dl>
+    </div>
+    <div class="card tool">
+      <div class="need">Besoins 06 et 07 · Mails, méthodes</div>
+      <div><span class="tag t-now">Chantier zéro</span></div>
+      <h3>Copilot dans Outlook et Word</h3>
+      <p class="what">Résumer un long fil de mails, préparer une réponse, mettre à jour un mode opératoire de sécurité à partir de votre modèle. La validation reste celle de vos responsables.</p>
+      <dl><dt>Outil</dt><dd>Copilot Chat, puis licence si besoin</dd><dt>Coût</dt><dd>Inclus, puis selon usage</dd></dl>
+    </div>
+    <div class="card tool">
+      <div class="need">Besoin 05 · Comptabilité</div>
+      <div><span class="tag t-later">Phase 2</span></div>
+      <h3>Lecture et imputation des factures</h3>
+      <p class="what">Depuis le 1<sup>er</sup> septembre 2026, vous recevez des factures électroniques via une plateforme agréée, avec des données structurées. Pour les factures restantes en PDF, Power Automate et son modèle de lecture de factures extraient les montants. L'outil propose le chantier et la section analytique, votre comptabilité valide.</p>
+      <dl><dt>Outil</dt><dd>Plateforme agréée + Power Automate</dd><dt>Coût</dt><dd>À chiffrer en phase 2 (licence Premium et crédits à l'usage)</dd></dl>
+    </div>
+    <div class="card tool">
+      <div class="need">Besoin 02 · Métrés</div>
+      <div><span class="tag t-later">Phase 2</span></div>
+      <h3>Un logiciel de métré spécialisé</h3>
+      <p class="what">Pour les métrés, un chat IA généraliste n'est pas le bon outil. Des logiciels métier font des métrés sur plans PDF ou DWG, plus précis sur des plans vectoriels que sur des scans. Nous vous aidons à en choisir un et à le relier à votre bibliothèque de prix.</p>
+      <dl><dt>Exemples</dt><dd>JustBIM, PriMus TAKEOFF, CalculoCAD</dd><dt>Coût</dt><dd>Selon l'éditeur retenu</dd></dl>
+    </div>
+    <div class="card tool">
+      <div class="need">Besoin 08 · Veille</div>
+      <div><span class="tag t-later">Phase 2</span></div>
+      <h3>Agent de veille</h3>
+      <p class="what">Un agent qui parcourt chaque semaine les sources publiques et la presse locale, et résume les projets qui vous concernent. À comparer avec votre abonnement actuel avant de décider quoi que ce soit.</p>
+      <dl><dt>Outil</dt><dd>Agent Copilot avec recherche web</dd><dt>Coût</dt><dd>À comparer à l'abonnement actuel</dd></dl>
+    </div>
+    <div class="card tool">
+      <div class="need">Option · Hébergement</div>
+      <div><span class="tag t-later">Si besoin</span></div>
+      <h3>Une alternative française</h3>
+      <p class="what">Vous avez cité l'hébergement en France comme un « petit plus ». Pour les documents les plus sensibles, l'assistant de Mistral AI, entreprise française, héberge les données dans l'Union européenne par défaut.</p>
+      <dl><dt>Outil</dt><dd>Mistral AI, offre Team</dd><dt>Coût</dt><dd>24,99 € HT par utilisateur et par mois</dd></dl>
+    </div>
+  </div>
+</div></section>
+
+<section id="demo" class="alt"><div class="wrap">
+  <div class="kicker">Démonstration</div>
+  <h2>Voyez l'outil <em>au travail.</em></h2>
+  <p class="lead">Deux exemples fictifs, construits sur des situations que vous nous avez décrites. Cliquez pour voir ce que l'outil prépare, et ce que la personne valide.</p>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="d1">Compte rendu de chantier</button>
+    <button role="tab" aria-selected="false" data-tab="d2">Facture fournisseur</button>
+  </div>
+  <div class="demo on" id="d1">
+    <div class="ba">
+      <div class="card">
+        <div class="label">Ce que le conducteur dicte, sur place · 1 minute</div>
+        <div class="raw">« Bon, chantier de l'école, visite de mardi. Gros œuvre terminé sur le bâtiment B. Le plombier n'était pas là, encore une fois, il faut le relancer. Les menuiseries arrivent le 12 au lieu du 5. Et attention, la tranchée côté parking n'est pas balisée, il faut le faire avant jeudi. »</div>
+        <div class="go"><button class="primary" data-run="o1">Mettre au propre</button></div>
+      </div>
+      <div class="card out" id="o1">
+        <div class="label">Ce que l'assistant prépare · le conducteur relit et envoie</div>
+        <div class="cr">
+          <h4>Avancement</h4>
+          <ul><li>Bâtiment B : gros œuvre terminé.</li></ul>
+          <h4>Sécurité</h4>
+          <ul><li><b>Tranchée côté parking non balisée</b> : balisage à faire avant jeudi.</li></ul>
+          <h4>Actions</h4>
+          <table>
+            <tr><th>Action</th><th>Qui</th><th>Quand</th></tr>
+            <tr><td>Relancer le plombier (absent)</td><td>Conducteur</td><td>Cette semaine</td></tr>
+            <tr><td>Baliser la tranchée</td><td>Chef de chantier</td><td>Avant jeudi</td></tr>
+            <tr><td>Mettre à jour le planning (menuiseries le 12, au lieu du 5)</td><td>Conducteur</td><td>Cette semaine</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo" id="d2">
+    <div class="ba">
+      <div class="card">
+        <div class="label">Ce qui arrive en comptabilité</div>
+        <div class="raw">Facture d'un négociant en matériaux, 4 230 € HT. Livraison : chantier de l'école. Lignes : parpaings, ciment, treillis soudé.</div>
+        <div class="go"><button class="primary" data-run="o2">Préparer l'imputation</button></div>
+      </div>
+      <div class="card out" id="o2">
+        <div class="label">Ce que l'outil propose · la comptable valide ou corrige</div>
+        <div class="cr">
+          <table>
+            <tr><th>Champ</th><th>Proposition</th><th>Fiabilité</th></tr>
+            <tr><td>Chantier</td><td>École</td><td><span class="pill">Élevée</span></td></tr>
+            <tr><td>Section analytique</td><td>Gros œuvre · fournitures</td><td><span class="pill">Élevée</span></td></tr>
+            <tr><td>Montant HT</td><td>4 230 €</td><td><span class="pill">Lu sur la facture</span></td></tr>
+            <tr><td>Bon de commande</td><td>Non trouvé</td><td><span class="pill w">À vérifier</span></td></tr>
+          </table>
+          <p class="small" style="margin:10px 0 0">Ce qui est sûr passe vite. Ce qui est douteux est signalé. La personne ne saisit plus : elle contrôle.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="essayer"><div class="wrap">
+  <div class="kicker">Avant même de signer</div>
+  <h2>Essayez-le <em>dès demain</em>, gratuitement.</h2>
+  <p class="lead">Pas besoin d'attendre janvier. Un de vos conducteurs peut tester l'idée du compte rendu dicté dès sa prochaine visite, avec l'outil que vous avez déjà.</p>
+  <div class="grid g2" style="margin-top:28px;align-items:start">
+    <div class="card">
+      <ol class="howto">
+        <li><b>Ouvrez Copilot Chat</b> avec le compte professionnel Microsoft 365. Vérifiez la présence du bouclier vert : il indique que les données de l'entreprise sont protégées.</li>
+        <li><b>Collez la consigne</b> ci-contre, une seule fois.</li>
+        <li><b>Dictez ou collez votre visite</b> à la suite, comme vous la raconteriez à un collègue.</li>
+        <li><b>Relisez et corrigez.</b> Notez le temps passé : c'est la première mesure du pilote.</li>
+      </ol>
+      <p class="small" style="margin:0">Règle de prudence : pas de données personnelles de salariés dans la dictée. Les noms d'entreprises et les fonctions suffisent.</p>
+    </div>
+    <div class="prompt" id="prompt"><button class="copy" id="copy">Copier</button>Tu es l'assistant de rédaction des comptes rendus de chantier de Bellanger Construction.
+
+Je vais te donner la transcription de ma dictée de visite. Range les informations dans ces rubriques :
+1. Chantier et date de visite
+2. Entreprises présentes et absentes
+3. Avancement, lot par lot
+4. Sécurité : points à corriger, en premier
+5. Planning et livraisons
+6. Actions à mener : tableau avec action, responsable, échéance
+
+N'invente rien. Si une information manque, écris « à compléter ».
+Style court et factuel, phrases simples.
+
+Voici ma dictée :</div>
+  </div>
+</div></section>
+
+<section id="securite" class="alt"><div class="wrap">
+  <div class="kicker">Votre priorité n° 1</div>
+  <p class="quote">« Que rien ne sorte, ou qu'on sache ce qui sort. »</p>
+  <p class="small" style="margin-bottom:28px">Julien Marchal, responsable travaux</p>
+  <div class="grid g2">
+    <div class="card">
+      <h3>On sait ce qui sort</h3>
+      <p>Avec Copilot Chat ouvert sur le compte professionnel, les échanges restent dans le périmètre Microsoft 365 que vous utilisez déjà. Ils ne servent pas à entraîner les modèles, et ils sont enregistrés : on peut les consulter en cas de besoin.</p>
+      <p style="margin:0">On remplace ainsi les comptes gratuits personnels par un outil que l'entreprise contrôle.</p>
+    </div>
+    <div class="card">
+      <h3>Une charte de deux pages</h3>
+      <p style="margin:0">Trois couleurs que chacun retient sans relire le document :</p>
+      <div class="rules">
+        <div class="rule r-green"><b>Vert : autorisé</b>Textes génériques, mises en forme, mails courants.</div>
+        <div class="rule r-orange"><b>Orange : outil de l'entreprise uniquement</b>Devis, prix, plans, données de chantier.</div>
+        <div class="rule r-red"><b>Rouge : jamais</b>Données personnelles des salariés, offres en cours sans accord.</div>
+      </div>
+    </div>
+  </div>
+  <p class="small" style="margin-top:18px">Obligation légale : depuis le 2 février 2025, le règlement européen sur l'IA (article 4) demande aux entreprises dont les salariés utilisent l'IA de prendre des mesures pour développer leur maîtrise de ces outils. La sensibilisation du chantier zéro y répond, et nous vous laissons la trace écrite de la démarche.</p>
+</div></section>
+
+<section id="plan"><div class="wrap">
+  <div class="kicker">Le plan</div>
+  <h2>Chantier zéro, preuve, <em>décision.</em></h2>
+  <p class="lead">Trois étapes courtes. À la fin de chacune, vous pouvez arrêter sans frais.</p>
+  <div class="steps" style="margin-top:28px">
+    <div class="card step zero">
+      <div class="num">0</div><h3>Le chantier zéro</h3><div class="when">4 au 22 janvier 2027 · 3 jours AXEM</div>
+      <ul>
+        <li>Une demi-journée avec le comité de direction : ce que l'IA fait vraiment, et ce qu'elle ne fait pas.</li>
+        <li>La charte, rédigée avec votre groupe de travail.</li>
+        <li>Copilot Chat activé pour tous, avec votre informaticien ou votre prestataire.</li>
+        <li>Trois sessions de sensibilisation d'1 h 30 pour tous les salariés.</li>
+        <li>Choix des 15 testeurs : études, travaux, comptabilité.</li>
+      </ul>
+      <div class="deliv"><b>Livré :</b> une charte, un outil sécurisé pour 170 personnes, des équipes sensibilisées.</div>
+    </div>
+    <div class="card step">
+      <div class="num">1</div><h3>Prouver</h3><div class="when">25 janvier au 19 mars 2027 · 6 jours AXEM</div>
+      <ul>
+        <li>Un atelier par métier, à partir de vos vrais documents.</li>
+        <li>Les trois outils du pilote construits pour Bellanger : compte rendu dicté, mémoire technique, comparatif de devis.</li>
+        <li>Mesure du temps passé avant, puis pendant le pilote.</li>
+        <li>Un point de 30 minutes chaque semaine avec les testeurs.</li>
+      </ul>
+      <div class="deliv"><b>Livré :</b> trois outils utilisés au quotidien, et les chiffres du temps gagné.</div>
+    </div>
+    <div class="card step">
+      <div class="num">2</div><h3>Décider</h3><div class="when">Semaine du 22 mars 2027 · 1 jour AXEM</div>
+      <ul>
+        <li>Bilan chiffré présenté au comité de direction.</li>
+        <li>Recommandation : combien de licences, pour qui, à partir de quand.</li>
+        <li>Cadrage de la phase 2 : factures, métrés, veille.</li>
+      </ul>
+      <div class="deliv"><b>Livré :</b> une décision prise sur des faits, et un plan pour la suite si elle est positive.</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="gains" class="alt"><div class="wrap">
+  <div class="kicker">Rentabilité</div>
+  <h2>Ce que ça rapporte : <em>faites le calcul vous-même.</em></h2>
+  <p class="lead">Les valeurs par défaut sont nos hypothèses. Remplacez-les par vos chiffres : c'est exactement ce que le pilote mesurera.</p>
+  <div class="sim" style="margin-top:28px">
+    <div class="card controls">
+      <h3>Comptes rendus de chantier</h3>
+      <div class="field"><label for="cond">Conducteurs de travaux <output id="o-cond"></output></label><input type="range" id="cond" min="2" max="30" value="10"></div>
+      <div class="field"><label for="cr">Comptes rendus par conducteur et par semaine <output id="o-cr"></output></label><input type="range" id="cr" min="1" max="8" value="3"></div>
+      <div class="field"><label for="min">Minutes gagnées par compte rendu <output id="o-min"></output></label><input type="range" id="min" min="5" max="60" step="5" value="30"></div>
+      <h3 style="margin-top:22px">Factures (phase 2)</h3>
+      <div class="field"><label for="fmin">Minutes de saisie par facture aujourd'hui <output id="o-fmin"></output></label><input type="range" id="fmin" min="1" max="10" value="3"></div>
+      <div class="field"><label for="fpct">Part du temps de saisie économisée <output id="o-fpct"></output></label><input type="range" id="fpct" min="10" max="80" step="5" value="50"></div>
+      <h3 style="margin-top:22px">Coûts</h3>
+      <div class="field"><label for="rate">Coût horaire chargé moyen <output id="o-rate"></output></label><input type="range" id="rate" min="25" max="80" value="45"></div>
+      <div class="field"><label for="lic">Licences Copilot <output id="o-lic"></output></label><input type="range" id="lic" min="5" max="60" step="5" value="15"></div>
+    </div>
+    <div class="result">
+      <div class="card">
+        <div class="small">Comptes rendus : temps rendu aux conducteurs</div>
+        <div class="big" id="r-cr-h"></div>
+        <div class="small" id="r-cr-e"></div>
+      </div>
+      <div class="card">
+        <div class="small">Factures : temps rendu à la comptabilité (3 500 factures par mois)</div>
+        <div class="big" id="r-f-h"></div>
+        <div class="small" id="r-f-e"></div>
+      </div>
+      <div class="card">
+        <div class="small">Valeur du temps gagné sur les comptes rendus, face au coût des licences, sur un an</div>
+        <div style="margin-top:8px" class="small">Temps gagné</div>
+        <div class="bar"><i id="b-gain"></i></div>
+        <div class="small" style="margin-top:8px">Licences (18,20 € HT par utilisateur et par mois)</div>
+        <div class="bar cost"><i id="b-cost"></i></div>
+        <p style="margin:12px 0 0" id="r-ratio"></p>
+      </div>
+      <p class="small">Calcul sur 45 semaines travaillées et 1 600 heures par équivalent temps plein. Le temps gagné n'est pas une baisse immédiate des dépenses : c'est du temps rendu au chantier, aux clients et aux appels d'offres, qui permet de faire plus avec la même équipe. Prix des licences : tarif public Microsoft 365 Copilot Business, hors promotion, sous réserve de votre abonnement Microsoft 365 actuel.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="budget"><div class="wrap">
+  <div class="kicker">Budget</div>
+  <h2>Payé par étape. <em>Rien d'engagé au-delà.</em></h2>
+  <div class="card scroll" style="margin-top:20px">
+    <table class="tbl">
+      <thead><tr><th>Poste</th><th>Détail</th><th style="text-align:right">Montant HT</th></tr></thead>
+      <tbody>
+        <tr><td><b>0 · Chantier zéro</b></td><td>3 jours : atelier direction, charte, activation, sensibilisation de tous</td><td class="n">2 850 €</td></tr>
+        <tr><td><b>1 · Prouver</b></td><td>6 jours : 3 ateliers métier, 3 outils construits pour vous, suivi et mesure</td><td class="n">5 700 €</td></tr>
+        <tr><td><b>2 · Décider</b></td><td>1 jour : bilan chiffré et recommandation au comité de direction</td><td class="n">950 €</td></tr>
+        <tr class="total"><td>Accompagnement AXEM</td><td>10 jours à 950 €</td><td class="n">9 500 €</td></tr>
+        <tr><td>Copilot Chat pour tous</td><td>Inclus dans votre abonnement Microsoft 365</td><td class="n">0 €</td></tr>
+        <tr><td>15 licences Copilot Business</td><td>Testeurs du pilote, 18,20 € par mois, engagement annuel Microsoft</td><td class="n">≈ 3 280 € / an</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h3>Financement</h3>
+      <p style="margin:0">Constructys, l'OPCO de la construction, finance des formations et des accompagnements sur l'intelligence artificielle. Nous préparons le dossier avec vous. Selon les règles 2026, la demande doit arriver au moins 15 jours avant le début de la formation : pour démarrer le 4 janvier, il faut la déposer <b>avant le 20 décembre</b>. Le montant pris en charge dépend des règles 2027 : nous le confirmerons avec votre conseiller Constructys.</p>
+    </div>
+    <div class="card">
+      <h3>Et à 50 licences ?</h3>
+      <p style="margin:0">Si le pilote est concluant, 50 licences représentent environ 10 900 € HT par an au tarif public actuel. Vous n'avez pas à le décider aujourd'hui : le bilan de mars dira si 50 est le bon chiffre, ou si 30 suffisent.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="questions" class="alt"><div class="wrap">
+  <div class="kicker">Les questions de votre comité</div>
+  <h2>Les réponses, <em>avant qu'on les pose.</em></h2>
+  <div style="margin-top:24px">
+    <details><summary>Nos salariés vont-ils perdre leur poste ?</summary><p>Non. L'objectif est de rendre du temps aux personnes en place, pas de supprimer des postes. L'outil prépare, la personne valide : le conducteur reste responsable de son compte rendu, la comptable de son imputation.</p></details>
+    <details><summary>Et si ça ne marche pas ?</summary><p>Vous arrêtez. Chaque étape se paie séparément, sans engagement sur la suivante. Si vous arrêtez après le chantier zéro, vous avez dépensé 2 850 € HT et vous gardez une charte, un outil sécurisé et des équipes sensibilisées.</p></details>
+    <details><summary>Pourquoi ne pas laisser les équipes utiliser les outils gratuits ?</summary><p>Parce que personne ne sait ce qui y est envoyé : prix, plans, données de chantier. Les versions gratuites grand public n'offrent pas la protection des données d'entreprise. Et depuis février 2025, le règlement européen sur l'IA demande aux entreprises de prendre des mesures pour encadrer ces usages.</p></details>
+    <details><summary>Nos données partent-elles chez Microsoft ?</summary><p>Elles y sont déjà : vos mails et vos documents sont dans Microsoft 365. Copilot Chat travaille dans ce même périmètre, avec les mêmes engagements de protection. Pour les documents les plus sensibles, nous pouvons vous proposer une alternative française.</p></details>
+    <details><summary>Combien de temps cela prend-il aux équipes ?</summary><p>1 h 30 de sensibilisation par salarié en janvier. Pour les 15 testeurs, un atelier métier d'une demi-journée, puis 30 minutes par semaine pendant le pilote. Le reste du temps, ils utilisent l'outil dans leur travail normal.</p></details>
+    <details><summary>Faut-il recruter un informaticien ?</summary><p>Non. L'activation se fait avec votre informaticien ou votre prestataire actuel, en quelques heures. AXEM construit les outils du pilote, et Clément forme les équipes à s'en servir.</p></details>
+  </div>
+</div></section>
+
+<section id="pourquoi"><div class="wrap">
+  <div class="kicker">Pourquoi AXEM</div>
+  <h2>Sur mesure, <em>pour moins cher</em> qu'une offre généraliste.</h2>
+  <div class="vs" style="margin-top:28px">
+    <div class="card">
+      <h3>L'offre généraliste</h3>
+      <ul>
+        <li>13 jours à 1 000 €, soit 13 000 €</li>
+        <li>Une formation à l'IA en général</li>
+        <li>Des exemples génériques</li>
+        <li>Les outils restent à construire après la formation</li>
+      </ul>
+    </div>
+    <div class="card ours">
+      <h3>AXEM IA</h3>
+      <ul>
+        <li>10 jours à 950 €, soit 9 500 €, payables par étape</li>
+        <li>On part de vos comptes rendus, de vos mémoires, de vos devis</li>
+        <li>Trois outils construits et utilisés à la fin du pilote</li>
+        <li>Des gains mesurés, présentés à votre comité de direction</li>
+        <li>Un seul interlocuteur, appuyé par Alexis pour les outils, Clément pour la formation, et un réseau de plus de 50 experts</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="suite" class="alt"><div class="wrap">
+  <div class="kicker">La suite</div>
+  <h2>D'ici <em>mi-décembre</em></h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Le calendrier</h3>
+      <ol class="next" style="margin:0;padding-left:1.2em">
+        <li><b>Maintenant :</b> vous présentez cette page au comité de direction. « L'essentiel » se lit en une minute.</li>
+        <li><b>Mi-décembre :</b> notre point. Vous validez le chantier zéro, et seulement lui.</li>
+        <li><b>Avant le 20 décembre :</b> dépôt du dossier Constructys.</li>
+        <li><b>4 janvier 2027 :</b> lancement.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Pour notre point, il nous faudra</h3>
+      <ul style="margin:0;padding-left:1.1em">
+        <li>Votre abonnement Microsoft 365 actuel (Business Standard, Premium ou autre)</li>
+        <li>Le nombre de conducteurs de travaux et de comptes rendus par semaine</li>
+        <li>Un ou deux comptes rendus et un mémoire technique récents</li>
+        <li>Votre logiciel comptable et votre plateforme de facture électronique</li>
+      </ul>
+    </div>
+  </div>
+  <a class="cta" href="#codir">Revoir l'essentiel</a><a class="cta ghost" href="javascript:window.print()">Imprimer pour le comité</a>
+</div></section>
+
+<footer><div class="wrap">
+  Proposition préparée par le candidat AXM-20261125-16F7 dans le cadre de l'épreuve AXEM IA. Le client est fictif. Prix HT. Tarifs des éditeurs : prix publics consultés en novembre 2026, susceptibles d'évoluer. Les logiciels de métré sont cités à titre d'exemples, sans lien avec leurs éditeurs. Les gains présentés sont des hypothèses à vérifier pendant le pilote.
+</div></footer>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const fmt=n=>Math.round(n).toLocaleString('fr-FR');
+  const WEEKS=45, LIC=18.20, ETP=1600;
+  function update(){
+    const cond=+$('cond').value, cr=+$('cr').value, min=+$('min').value,
+          fmin=+$('fmin').value, fpct=+$('fpct').value, rate=+$('rate').value, lic=+$('lic').value;
+    $('o-cond').textContent=cond; $('o-cr').textContent=cr; $('o-min').textContent=min+' min';
+    $('o-fmin').textContent=fmin+' min'; $('o-fpct').textContent=fpct+' %';
+    $('o-rate').textContent=rate+' €/h'; $('o-lic').textContent=lic;
+    const crH=cond*cr*min/60*WEEKS, fH=3500*12*fmin/60*fpct/100;
+    $('r-cr-h').textContent=fmt(crH)+' h / an';
+    $('r-cr-e').textContent='soit environ '+fmt(crH/cond)+' h par conducteur et par an, valorisées à '+fmt(crH*rate)+' €';
+    $('r-f-h').textContent=fmt(fH)+' h / an';
+    $('r-f-e').textContent='soit environ '+(fH/ETP).toLocaleString('fr-FR',{maximumFractionDigits:1})+' équivalent temps plein, valorisé à '+fmt(fH*rate)+' €';
+    const gain=crH*rate, cost=lic*LIC*12, max=Math.max(gain,cost,1);
+    $('b-gain').style.width=(gain/max*100)+'%';
+    $('b-cost').style.width=(cost/max*100)+'%';
+    $('r-ratio').innerHTML='Sur les seuls comptes rendus, le temps gagné vaut <b>'+fmt(gain)+' €</b> par an, pour <b>'+fmt(cost)+' €</b> de licences. '+
+      (gain>=cost?'Les licences sont couvertes <b>'+(gain/cost).toLocaleString('fr-FR',{maximumFractionDigits:1})+' fois</b>, sans compter les factures.':'Ce seul usage ne couvre pas les licences : il faudra les réserver aux profils qui en tirent le plus.');
+  }
+  document.querySelectorAll('input[type=range]').forEach(i=>i.addEventListener('input',update));
+  update();
+  document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected','false'));
+    b.setAttribute('aria-selected','true');
+    document.querySelectorAll('.demo').forEach(d=>d.classList.remove('on'));
+    $(b.dataset.tab).classList.add('on');
+  }));
+  document.querySelectorAll('[data-run]').forEach(b=>b.addEventListener('click',()=>{
+    $(b.dataset.run).classList.add('show');
+    b.textContent='Fait : à relire et valider';
+  }));
+  $('copy').addEventListener('click',()=>{
+    const t=$('prompt').innerText.replace(/^Copier\s*/,'').replace(/^Copié\s*/,'');
+    const done=()=>{$('copy').textContent='Copié';setTimeout(()=>$('copy').textContent='Copier',2000)};
+    try{navigator.clipboard.writeText(t).then(done,()=>{})}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
